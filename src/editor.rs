@@ -15,6 +15,11 @@ const PANEL_HEIGHT: f32 = 200.0;
 const PANEL_WIDTH: f32 = 280.0;
 const SMALL_TEXT_SIZE: f32 = 15.0;
 
+const BG_COLOR: Color = Color::rgb(239, 245, 247);
+const PANEL_COLOR: Color = Color::rgb(229, 239, 242);
+const PANEL_TEXT_COLOR: Color = Color::rgb(202, 222, 228);
+const SLIDER_FILL_COLOR: Color = Color::rgb(141, 155, 160);
+
 #[derive(Lens)]
 struct Data {
     plugin_data: Arc<PluginParams>
@@ -65,7 +70,7 @@ pub(crate) fn create(
                         .child_space(Stretch(1.0))
                         .height(Pixels(30.0))
                         .width(Pixels(PANEL_WIDTH))
-                        .background_color(Color::rgb(141,176,219));
+                        .background_color(PANEL_TEXT_COLOR);
                         
                     
                         HStack::new(cx, |cx| {
@@ -95,7 +100,7 @@ pub(crate) fn create(
                     .row_between(Pixels(3.0))
                     .width(Pixels(PANEL_WIDTH))
                     .height(Pixels(PANEL_HEIGHT))
-                    .background_color(Color::rgb(196,218,247));
+                    .background_color(PANEL_COLOR);
 
                     // DELAY FEEDBACK + FILTER STACK
                     VStack::new(cx, |cx| {
@@ -109,7 +114,7 @@ pub(crate) fn create(
                         .child_space(Stretch(1.0))
                         .height(Pixels(30.0))
                         .width(Pixels(PANEL_WIDTH))
-                        .background_color(Color::rgb(141,176,219));
+                        .background_color(PANEL_TEXT_COLOR);
                     
                         HStack::new(cx, |cx| {
                             VStack::new(cx, |cx| {
@@ -152,7 +157,7 @@ pub(crate) fn create(
                     .row_between(Pixels(3.0))
                     .width(Pixels(PANEL_WIDTH))
                     .height(Pixels(PANEL_HEIGHT))
-                    .background_color(Color::rgb(196,218,247));
+                    .background_color(PANEL_COLOR);
 
 
                     // DELAY WET / DRY STACK
@@ -167,7 +172,7 @@ pub(crate) fn create(
                         .child_space(Stretch(1.0))
                         .height(Pixels(30.0))
                         .width(Pixels(PANEL_WIDTH))
-                        .background_color(Color::rgb(141,176,219));
+                        .background_color(PANEL_TEXT_COLOR);
                     
                         HStack::new(cx, |cx| {
                             VStack::new(cx, |cx| {
@@ -196,13 +201,14 @@ pub(crate) fn create(
                     .row_between(Pixels(3.0))
                     .width(Pixels(PANEL_WIDTH))
                     .height(Pixels(PANEL_HEIGHT))
-                    .background_color(Color::rgb(196,218,247));
+                    .background_color(PANEL_COLOR);
 
                 }).col_between(Pixels(10.0));
                 
             })
             .child_left(Stretch(1.0))
-            .child_right(Stretch(1.0));
+            .child_right(Stretch(1.0))
+            .background_color(BG_COLOR);
 
         })
 }

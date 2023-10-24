@@ -96,7 +96,7 @@ impl Default for PluginParams {
             .with_value_to_string(formatters::v2s_f32_hz_then_khz(2))
             .with_string_to_value(formatters::s2v_f32_hz_then_khz()),
 
-            resonance: FloatParam::new("Resonance", 0.707, FloatRange::Linear { min: 0.5, max: 3.0 })
+            resonance: FloatParam::new("Resonance", 0.707, FloatRange::Linear { min: 0.5, max: 2.0 })
             .with_value_to_string(formatters::v2s_f32_rounded(2)),
 
             filter_type: EnumParam::new("Filter Type", FilterType::LowPass2),
@@ -199,14 +199,18 @@ impl Plugin for EffectPlugin {
             let delay_timing = self.params.delay_timing.value();
             let cutoff = self.params.cutoff.smoothed.next();
             let resonance = self.params.resonance.smoothed.next();
+            let filter_type = self.params.filter_type.value();
             let dry = self.params.dry.smoothed.next();
             let wet = self.params.wet.smoothed.next();
 
             self.left_delay.set_delay(delay_time, delay_timing, self.sample_rate, self.bpm);
             self.right_delay.set_delay(delay_time, delay_timing, self.sample_rate, self.bpm);
-            self.lpf.second_order_lpf_coefficients(self.sample_rate, cutoff, resonance);
-
-
+            match filter_type {
+                FilterType::LowPass2 => self.lpf.second_order_lpf_coefficients(self.sample_rate, cutoff, resonance),
+                FilterType::HighPass2 => self.lpf.second_order_hpf_coefficients(self.sample_rate, cutoff, resonance),
+                FilterType::BandPass => self.lpf.band_pass_coefficients(self.sample_rate, cutoff, resonance),
+            }
+            
             for (num, sample) in channel_samples.into_iter().enumerate() {
                 // processing
                 if num == 0 {

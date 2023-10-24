@@ -12,9 +12,9 @@ pub enum FilterType {
 impl Enum for FilterType {
     fn variants() -> &'static [&'static str] {
         &[
-            "Second Order Low-Pass",
-            "Second Order High-Pass",
-            "Band-Pass",
+            "LPF",
+            "HPF",
+            "BPF",
         ]
     }
 

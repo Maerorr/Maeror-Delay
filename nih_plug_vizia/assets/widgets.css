@@ -81,8 +81,9 @@ param-slider:hover {
 }
 
 param-slider .fill {
-  background-color: #c4c4c4;
+  background-color: #cadee4;
 }
+
 param-slider .fill--modulation {
   background-color: #a4eafc69;
 }
