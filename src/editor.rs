@@ -78,6 +78,7 @@ pub(crate) fn create(
                                 .child_space(Stretch(1.0))
                                 .font_size(SMALL_TEXT_SIZE).height(Pixels(30.0));
                             })
+                            .row_between(Pixels(5.0))
                             .child_left(Pixels(10.0));
                             
                             VStack::new(cx, |cx| {
@@ -87,6 +88,7 @@ pub(crate) fn create(
                                 ParamSlider::new(cx, Data::plugin_data, |params| &params.delay_timing)
                                 .height(Pixels(30.0));
                             })
+                            .row_between(Pixels(5.0))
                             .child_right(Pixels(10.0));
                         });
                     })
@@ -122,7 +124,12 @@ pub(crate) fn create(
                                 Label::new(cx, "Resonance")
                                 .child_space(Stretch(1.0))
                                 .font_size(SMALL_TEXT_SIZE).height(Pixels(30.0));
+
+                                Label::new(cx, "Filter Type")
+                                .child_space(Stretch(1.0))
+                                .font_size(SMALL_TEXT_SIZE).height(Pixels(30.0));
                             })
+                            .row_between(Pixels(5.0))
                             .child_left(Pixels(10.0));
                             
                             VStack::new(cx, |cx| {
@@ -134,7 +141,11 @@ pub(crate) fn create(
 
                                 ParamSlider::new(cx, Data::plugin_data, |params| &params.resonance)
                                 .height(Pixels(30.0));
+
+                                ParamSlider::new(cx, Data::plugin_data, |params| &params.filter_type)
+                                .height(Pixels(30.0));
                             })
+                            .row_between(Pixels(5.0))
                             .child_right(Pixels(10.0));
                         });
                     })
@@ -168,6 +179,7 @@ pub(crate) fn create(
                                 .child_space(Stretch(1.0))
                                 .font_size(SMALL_TEXT_SIZE).height(Pixels(30.0));
                             })
+                            .row_between(Pixels(5.0))
                             .child_left(Pixels(10.0));
                             
                             VStack::new(cx, |cx| {
@@ -177,6 +189,7 @@ pub(crate) fn create(
                                 ParamSlider::new(cx, Data::plugin_data, |params| &params.dry)
                                 .height(Pixels(30.0));
                             })
+                            .row_between(Pixels(5.0))
                             .child_right(Pixels(10.0));
                         });
                     })

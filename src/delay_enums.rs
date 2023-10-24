@@ -8,13 +8,11 @@ pub enum DelayTime {
     _1_4,
     _1_2,
     _1,
-    _2,
-    _4,
 }
 
 impl Enum for DelayTime {
     fn variants() -> &'static [&'static str] {
-        &["1/32", "1/16", "1/8", "1/4", "1/2", "1", "2", "4"]
+        &["1/32", "1/16", "1/8", "1/4", "1/2", "1"]
     }
 
     fn ids() -> Option<&'static [&'static str]> {
@@ -25,8 +23,6 @@ impl Enum for DelayTime {
             "1/4",
             "1/2",
             "1",
-            "2",
-            "4",
         ])
     }
 
@@ -38,8 +34,7 @@ impl Enum for DelayTime {
             DelayTime::_1_4 => 3,
             DelayTime::_1_2 => 4,
             DelayTime::_1 => 5,
-            DelayTime::_2 => 6,
-            DelayTime::_4 => 7,
+
         }
     }
 
@@ -51,8 +46,6 @@ impl Enum for DelayTime {
             3 => DelayTime::_1_4,
             4 => DelayTime::_1_2,
             5 => DelayTime::_1,
-            6 => DelayTime::_2,
-            7 => DelayTime::_4,
             _ => DelayTime::_1_4,
         }
     }
@@ -67,8 +60,6 @@ impl DelayTime {
             DelayTime::_1_4 => 1.0 / 4.0,
             DelayTime::_1_2 => 1.0 / 2.0,
             DelayTime::_1 => 1.0,
-            DelayTime::_2 => 2.0,
-            DelayTime::_4 => 4.0,
         }
     }
 
@@ -80,13 +71,11 @@ impl DelayTime {
             DelayTime::_1_4 => 1.0,
             DelayTime::_1_2 => 2.0,
             DelayTime::_1 => 4.0,
-            DelayTime::_2 => 8.0,
-            DelayTime::_4 => 16.0,
         }
     }
 
     pub fn get_max_in_beats() -> f32 {
-        16.0
+        4.0
     }
 }
 

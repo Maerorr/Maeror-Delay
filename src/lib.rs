@@ -54,6 +54,9 @@ pub struct PluginParams {
     #[id = "resonance"]
     resonance: FloatParam,
 
+    #[id = "filter_type"]
+    filter_type: EnumParam<FilterType>,
+
     #[id = "dry"]
     dry: FloatParam,
 
@@ -96,11 +99,13 @@ impl Default for PluginParams {
             resonance: FloatParam::new("Resonance", 0.707, FloatRange::Linear { min: 0.5, max: 3.0 })
             .with_value_to_string(formatters::v2s_f32_rounded(2)),
 
+            filter_type: EnumParam::new("Filter Type", FilterType::LowPass2),
+
             dry: FloatParam::new("Dry", 1.0, FloatRange::Linear { min: 0.0, max: 1.0 })
             .with_value_to_string(formatters::v2s_f32_percentage(2))
             .with_string_to_value(formatters::s2v_f32_percentage()),
 
-            wet: FloatParam::new("Wet", 0.0, FloatRange::Linear { min: 0.0, max: 1.0 })
+            wet: FloatParam::new("Wet", 1.0, FloatRange::Linear { min: 0.0, max: 1.0 })
             .with_value_to_string(formatters::v2s_f32_percentage(2))
             .with_string_to_value(formatters::s2v_f32_percentage()),
         }

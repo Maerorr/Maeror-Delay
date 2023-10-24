@@ -4,81 +4,41 @@ use nih_plug::prelude::Enum;
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum FilterType {
-    LowPass1,
     LowPass2,
-    HighPass1,
     HighPass2,
     BandPass,
-    Notch,
-    FirstOrderAllPass,
-    SecondOrderAllPass,
-    LowShelf,
-    HighShelf,
-    Peak,
 }
 
 impl Enum for FilterType {
     fn variants() -> &'static [&'static str] {
         &[
-            "First Order Low-Pass",
             "Second Order Low-Pass",
-            "First Order High-Pass",
             "Second Order High-Pass",
             "Band-Pass",
-            "Notch",
-            "First Order All-Pass",
-            "Second Order All-Pass",
-            "LowShelf",
-            "HighShelf",
-            "Peak",
         ]
     }
 
     fn ids() -> Option<&'static [&'static str]> {
         Some(&[
-            "lp1",
             "lp2",
-            "hp1",
             "hp2",
             "bp",
-            "notch",
-            "ap1",
-            "ap2",
-            "ls",
-            "hs",
-            "peak",
         ])
     }
 
     fn to_index(self) -> usize {
         match self {
-            FilterType::LowPass1 => 0,
-            FilterType::LowPass2 => 1,
-            FilterType::HighPass1 => 2,
-            FilterType::HighPass2 => 3,
-            FilterType::BandPass => 4,
-            FilterType::Notch => 5,
-            FilterType::FirstOrderAllPass => 6,
-            FilterType::SecondOrderAllPass => 7,
-            FilterType::LowShelf => 8,
-            FilterType::HighShelf => 9,
-            FilterType::Peak => 10,
+            FilterType::LowPass2 => 0,
+            FilterType::HighPass2 => 1,
+            FilterType::BandPass => 2,
         }
     }
 
     fn from_index(index: usize) -> Self {
         match index {
-            0 => FilterType::LowPass1,
-            1 => FilterType::LowPass2,
-            2 => FilterType::HighPass1,
-            3 => FilterType::HighPass2,
-            4 => FilterType::BandPass,
-            5 => FilterType::Notch,
-            6 => FilterType::FirstOrderAllPass,
-            7 => FilterType::SecondOrderAllPass,
-            8 => FilterType::LowShelf,
-            9 => FilterType::HighShelf,
-            10 => FilterType::Peak,
+            0 => FilterType::LowPass2,
+            1 => FilterType::HighPass2,
+            2 => FilterType::BandPass,
             _ => panic!("Invalid filter type index."),
         }
     }
@@ -387,14 +347,8 @@ impl BiquadFilter {
 
     pub fn coefficients(&mut self, filter_type: FilterType, cutoff: f32, q: f32, gain: f32) {
         match filter_type {
-            FilterType::LowPass1 => {
-                self.first_order_lpf_coefficients(self.sample_rate, cutoff);
-            },
             FilterType::LowPass2 => {
                 self.second_order_lpf_coefficients(self.sample_rate, cutoff, q);
-            },
-            FilterType::HighPass1 => {
-                self.first_order_hpf_coefficients(self.sample_rate, cutoff);
             },
             FilterType::HighPass2 => {
                 self.second_order_hpf_coefficients(self.sample_rate, cutoff, q);
@@ -402,24 +356,6 @@ impl BiquadFilter {
             FilterType::BandPass => {
                 self.band_pass_coefficients(self.sample_rate, cutoff, q);
             },
-            FilterType::Notch => {
-                self.notch_coefficients(self.sample_rate, cutoff, q);
-            },
-            FilterType::FirstOrderAllPass => {
-                self.first_order_allpass_coefficients(self.sample_rate, cutoff);
-            },
-            FilterType::SecondOrderAllPass => {
-                self.second_order_allpass_coefficients(self.sample_rate, cutoff, q);
-            },
-            FilterType::LowShelf => {
-                self.low_shelf_coefficients(self.sample_rate, cutoff, gain);
-            },
-            FilterType::HighShelf => {
-                self.high_shelf_coefficients(self.sample_rate, cutoff, gain);
-            }
-            FilterType::Peak => {
-                self.peak_coefficients(self.sample_rate, cutoff, q, gain);
-            }
         }
     }
 }
